@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第1節 AI圖像創作・提示詞複製卡</title>
+<style>
+:root{--bg:#fbf6ea;--card:#fffdf7;--ink:#3d3a2f;--green:#6f9a5b;--sky:#8fbcd4;--coral:#e0896b;--sun:#f3c969;--muted:#7a7462}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","PingFang HK","Microsoft JhengHei",sans-serif;background:linear-gradient(#dcefe9,var(--bg) 320px);color:var(--ink);font-size:22px;line-height:1.6}
+.safety{background:#fff1d6;border-bottom:3px solid var(--sun);text-align:center;padding:12px 16px;font-weight:700;font-size:22px}
+header{text-align:center;padding:22px 16px 6px}
+h1{margin:0;font-size:36px;color:#4f7a43}
+.sub{color:var(--muted);margin:4px 0 0}
+.steps{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:16px;position:sticky;top:0;z-index:5;background:rgba(251,246,234,.95);border-bottom:2px dashed #d9cfb3}
+.step{background:var(--card);border:3px solid var(--sky);border-radius:18px;padding:10px 18px;font-weight:700;font-size:21px;text-decoration:none;color:var(--ink);min-height:56px;display:flex;align-items:center}
+.step b{background:var(--sky);color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;margin-right:8px}
+a.step{border-color:var(--green)}a.step:hover{background:#eef6e8}
+main{max-width:980px;margin:0 auto;padding:10px 16px 40px}
+h2{font-size:28px;color:#5b4a2e;margin:34px 0 12px;display:flex;align-items:center;gap:12px}
+.sn{background:var(--coral);color:#fff;border-radius:14px;min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center}
+.card{display:flex;align-items:center;gap:16px;background:var(--card);border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 4px 0 #e6dcc2;border:2px solid #efe6cf}
+.num{flex:0 0 46px;height:46px;border-radius:50%;background:#e6f0dc;color:#4f7a43;font-weight:800;display:flex;align-items:center;justify-content:center}
+.body{flex:1;min-width:0}
+.tag{display:inline-block;background:#fdeee0;color:#a2593c;border-radius:10px;padding:2px 12px;font-size:18px;font-weight:700}
+.prompt{margin:6px 0 0;font-size:26px}
+.copy{flex:0 0 auto;font-size:24px;font-weight:800;padding:0 24px;min-height:72px;min-width:140px;border:none;border-radius:20px;background:var(--green);color:#fff;box-shadow:0 5px 0 #4f7a43;cursor:pointer;font-family:inherit}
+.copy:active{transform:translateY(3px);box-shadow:0 2px 0 #4f7a43}
+.copy.done{background:var(--coral);box-shadow:0 5px 0 #b3654a}
+.builder{align-items:flex-end}
+.tpl{color:var(--muted);margin:6px 0 10px}
+.lab{display:block;font-weight:700;margin-top:12px}
+.lab input{display:block;width:100%;font-size:24px;padding:12px 14px;border:3px solid #d9cfb3;border-radius:14px;margin-top:6px;font-family:inherit;background:#fff}
+.lab input:focus{outline:none;border-color:var(--sky)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.chip{font-size:21px;min-height:52px;padding:0 18px;border-radius:26px;border:3px solid var(--sun);background:#fffbea;cursor:pointer;font-family:inherit;color:var(--ink)}
+.chip.on{background:var(--sun);font-weight:800}
+.preview-lab{margin-top:16px;font-weight:700;color:#4f7a43}
+.preview{background:#f1f8ec;border-radius:14px;padding:12px 14px;border:2px dashed var(--green)}
+.rules{background:#fff;border-radius:22px;padding:14px 22px;margin-top:34px;border:3px solid #f0d9a0}
+.rules h2{margin:8px 0}
+.rules ul{margin:0;padding-left:1.1em}
+footer{text-align:center;color:var(--muted);font-size:18px;padding:20px}
+@media (max-width:640px){.card{flex-wrap:wrap}.copy{width:100%}.num{display:none}body{font-size:20px}.prompt{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="safety">🛡️ 唔好輸入真名、學校、地址、相片</div>
+<header><h1>🦊 第1節 AI圖像創作・提示詞複製卡</h1><p class="sub">提示詞四寶：主體＋場景＋風格＋細節</p></header>
+<nav class="steps">
+<span class="step"><b>1</b>按「複製」</span>
+<a class="step" href="https://gemini.google.com" target="_blank" rel="noopener"><b>2</b>打開 Gemini</a>
+<a class="step" href="https://www.canva.com" target="_blank" rel="noopener"><b>2</b>打開 Canva</a>
+<span class="step"><b>3</b>貼上</span>
+<span class="step"><b>4</b>按生成</span>
+</nav>
+<main>
+<section><h2><span class="sn">1</span>熱身「聽聲畫圖」</h2><div class="card"><div class="num">1</div><div class="body"><p class="prompt" id="p1">一個戴紅帽嘅小女孩，坐喺舊木圖書館嘅圓窗旁邊安靜睇書，陽光照入嚟，旁邊有隻橙色貓仔瞓緊覺。</p></div><button class="copy" data-target="p1">📋 複製</button></div></section>
+<section><h2><span class="sn">2</span>比一比：含糊描述 vs 清楚描述</h2><div class="card"><div class="num">2</div><div class="body"><span class="tag">含糊 😐</span><p class="prompt" id="p2">一隻貓</p></div><button class="copy" data-target="p2">📋 複製</button></div><div class="card"><div class="num">3</div><div class="body"><span class="tag">清楚 🤩</span><p class="prompt" id="p3">吉卜力風格，一隻毛茸茸橙色貓仔坐喺木窗台望住落雨嘅香港舊街，旁邊有盆栽同一杯熱茶，燈光暖暖。</p></div><button class="copy" data-target="p3">📋 複製</button></div></section>
+<section><h2><span class="sn">3</span>提示詞四寶示範</h2><div class="card"><div class="num">4</div><div class="body"><p class="prompt" id="p4">吉卜力風格、水彩，一隻橙色貓仔坐喺窗台望落雨，燈光暖暖、有杯熱茶。</p></div><button class="copy" data-target="p4">📋 複製</button></div></section>
+<section><h2><span class="sn">4</span>魔法實驗：只改一個詞</h2><div class="card"><div class="num">5</div><div class="body"><span class="tag">☀️ 晴朗早上</span><p class="prompt" id="p5">吉卜力風格、水彩，一個穿校服嘅小學生喺香港天台花園淋花，晴朗早上。</p></div><button class="copy" data-target="p5">📋 複製</button></div><div class="card"><div class="num">6</div><div class="body"><span class="tag">🌇 日落黃昏</span><p class="prompt" id="p6">吉卜力風格、水彩，一個穿校服嘅小學生喺香港天台花園淋花，日落黃昏。</p></div><button class="copy" data-target="p6">📋 複製</button></div><div class="card"><div class="num">7</div><div class="body"><span class="tag">❄️ 落雪</span><p class="prompt" id="p7">吉卜力風格、水彩，一個穿校服嘅小學生喺香港天台花園淋花，落雪。</p></div><button class="copy" data-target="p7">📋 複製</button></div><div class="card"><div class="num">8</div><div class="body"><span class="tag">🌌 夜晚滿天星</span><p class="prompt" id="p8">吉卜力風格、水彩，一個穿校服嘅小學生喺香港天台花園淋花，夜晚滿天星。</p></div><button class="copy" data-target="p8">📋 複製</button></div></section>
+<section><h2><span class="sn">5</span>全班升級：由「一隻狗」開始</h2><div class="card"><div class="num">9</div><div class="body"><span class="tag">Lv.1</span><p class="prompt" id="p9">一隻狗</p></div><button class="copy" data-target="p9">📋 複製</button></div><div class="card"><div class="num">10</div><div class="body"><span class="tag">Lv.2</span><p class="prompt" id="p10">一隻白色小狗</p></div><button class="copy" data-target="p10">📋 複製</button></div><div class="card"><div class="num">11</div><div class="body"><span class="tag">Lv.3</span><p class="prompt" id="p11">一隻白色小狗喺沙灘追波波</p></div><button class="copy" data-target="p11">📋 複製</button></div><div class="card"><div class="num">12</div><div class="body"><span class="tag">Lv.4</span><p class="prompt" id="p12">吉卜力風格、水彩，一隻白色小狗喺沙灘追波波</p></div><button class="copy" data-target="p12">📋 複製</button></div><div class="card"><div class="num">13</div><div class="body"><span class="tag">Lv.5</span><p class="prompt" id="p13">吉卜力風格、水彩，一隻白色小狗喺沙灘追波波，黃昏、海浪閃閃發光、好開心</p></div><button class="copy" data-target="p13">📋 複製</button></div></section>
+<section><h2><span class="sn">6</span>小任務一：我嘅夢想小鎮（老師示範例子）</h2><div class="card"><div class="num">14</div><div class="body"><p class="prompt" id="p14">吉卜力風格，一隻友善大海龜揹住彩色小鎮喺雲上面飛，有風車、電車同熱氣球。</p></div><button class="copy" data-target="p14">📋 複製</button></div></section>
+<section><h2><span class="sn">7</span>小任務二：學生自己用嘅填空模板</h2>
+<div class="card builder"><div class="num">15</div><div class="body">
+<span class="tag">填空模板</span>
+<p class="tpl">吉卜力風格、水彩，【主體】喺【場景】，【細節】。</p>
+<label class="lab">① 主體（邊個？咩嘢？）<input id="f-subj" placeholder="揀一個或者自己打"></label>
+<div class="chips"><button type="button" class="chip" data-field="subj">橙色貓仔</button><button type="button" class="chip" data-field="subj">白色小狗</button><button type="button" class="chip" data-field="subj">友善大海龜</button></div>
+<label class="lab">② 場景（喺邊？）<input id="f-scene" placeholder="揀一個或者自己打"></label>
+<div class="chips"><button type="button" class="chip" data-field="scene">香港天台花園</button><button type="button" class="chip" data-field="scene">沙灘</button><button type="button" class="chip" data-field="scene">雲上面</button></div>
+<label class="lab">③ 細節（顏色、天氣、心情）<input id="f-detail" placeholder="揀一個或者自己打"></label>
+<div class="chips"><button type="button" class="chip" data-field="detail">黃昏</button><button type="button" class="chip" data-field="detail">落雨</button><button type="button" class="chip" data-field="detail">滿天星</button></div>
+<div class="preview-lab">👀 你嘅句子：</div>
+<p class="prompt preview" id="p15"></p>
+</div><button class="copy" data-target="p15">📋 複製</button></div></section>
+<div class="rules"><h2>🛡️ 小狐狸安全守則</h2><ul>
+<li>唔好輸入真實姓名、學校、地址、電話、相片</li>
+<li>唔好用同學或老師嘅相片去改圖、變臉</li>
+<li>AI 圖畫係「生成」出嚟，唔係真實相片，唔好用嚟騙人</li>
+<li>分享作品時講明「用 AI 協助創作」</li></ul></div>
+</main>
+<footer>⭐ 記住：創意同想法係你嘅，AI 只係幫你畫出嚟嘅畫筆。</footer>
+<script>
+(function(){
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);
+    ta.select();ta.setSelectionRange(0,text.length);var ok=false;
+    try{ok=document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);return ok;
+  }
+  function copyText(text){
+    if(navigator.clipboard&&window.isSecureContext){
+      return navigator.clipboard.writeText(text).then(function(){return true;},function(){return fallbackCopy(text);});
+    }
+    return Promise.resolve(fallbackCopy(text));
+  }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var text=document.getElementById(btn.dataset.target).textContent.trim();
+      copyText(text).then(function(ok){
+        btn.textContent=ok?'✅ 已複製！':'請長按文字複製';btn.classList.add('done');
+        clearTimeout(btn._t);btn._t=setTimeout(function(){btn.textContent='📋 複製';btn.classList.remove('done');},1500);
+      });
+    });
+  });
+  var f={subj:document.getElementById('f-subj'),scene:document.getElementById('f-scene'),detail:document.getElementById('f-detail')};
+  var prev=document.getElementById('p15');
+  function render(){
+    var s=f.subj.value.trim()||'【主體】',c=f.scene.value.trim()||'【場景】',d=f.detail.value.trim()||'【細節】';
+    prev.textContent='吉卜力風格、水彩，'+s+'喺'+c+'，'+d+'。';
+    document.querySelectorAll('.chip').forEach(function(ch){ch.classList.toggle('on',f[ch.dataset.field].value.trim()===ch.textContent);});
+  }
+  document.querySelectorAll('.chip').forEach(function(ch){
+    ch.addEventListener('click',function(){f[ch.dataset.field].value=ch.textContent;render();});
+  });
+  Object.keys(f).forEach(function(k){f[k].addEventListener('input',render);});
+  render();
+})();
+</script>
+</body>
+</html>
